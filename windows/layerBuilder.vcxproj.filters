@@ -4,11 +4,27 @@
     <Text Include="console.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\main.cpp" />
-    <ClCompile Include="..\mLibSource.cpp" />
+    <ClCompile Include="..\mLibSource.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\main.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\main.h" />
-    <ClInclude Include="..\mLibInclude.h" />
+    <ClInclude Include="..\mLibInclude.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\main.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\appParameters.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{26c88713-fe9e-4d46-9a87-c0b24a006694}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
