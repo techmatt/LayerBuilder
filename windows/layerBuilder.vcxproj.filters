@@ -10,6 +10,15 @@
     <ClCompile Include="..\main.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\video.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\supervoxelGenerator.cpp">
+      <Filter>LayerBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\layerBuilder.cpp">
+      <Filter>LayerBuilder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\mLibInclude.h">
@@ -21,10 +30,28 @@
     <ClInclude Include="..\appParameters.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\colorCoordinate.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\video.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\supervoxelGenerator.h">
+      <Filter>LayerBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\layerBuilder.h">
+      <Filter>LayerBuilder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
       <UniqueIdentifier>{26c88713-fe9e-4d46-9a87-c0b24a006694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{46d8518b-c60f-4b81-b407-456d392442ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LayerBuilder">
+      <UniqueIdentifier>{0b8022a0-79e7-4276-a263-e6e37c624880}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

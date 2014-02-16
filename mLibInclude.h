@@ -12,4 +12,9 @@
 
 #include "mLibCore.h"
 #include "mLibANN.h"
-#include "mLibEigen.h"
+
+//
+// It is often best to selectively include eigen to keep the
+// pre-compiled header to a reasonable size.
+//
+//#include "mLibEigen.h"

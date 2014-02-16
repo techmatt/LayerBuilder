@@ -9,10 +9,11 @@ public:
 
 void App::go(const CommandLineReader &commandLine)
 {
+	const String inputFile = commandLine.arg(0);
+	const String outputFile = commandLine.arg(1);
 	AppParameters params(commandLine.arg(2));
-
-	Console::log("logging!");
-	std::cin.get();
+	const String paletteFile = commandLine.argWithPrefix("palette=");
+	const String seedsFile = commandLine.argWithPrefix("seeds=");
 }
 
 void main(int argc, char* argv[])
@@ -26,4 +27,7 @@ void main(int argc, char* argv[])
 
 	App a;
 	a.go(commandLine);
+
+	Console::log("Press any key to continue...");
+	std::cin.get();
 }

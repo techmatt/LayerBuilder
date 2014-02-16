@@ -85,15 +85,22 @@
     <Text Include="console.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\layerBuilder.cpp" />
     <ClCompile Include="..\main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\mLibSource.cpp" />
+    <ClCompile Include="..\supervoxelGenerator.cpp" />
+    <ClCompile Include="..\video.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\appParameters.h" />
+    <ClInclude Include="..\colorCoordinate.h" />
+    <ClInclude Include="..\layerBuilder.h" />
     <ClInclude Include="..\main.h" />
     <ClInclude Include="..\mLibInclude.h" />
+    <ClInclude Include="..\supervoxelGenerator.h" />
+    <ClInclude Include="..\video.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
