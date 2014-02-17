@@ -1,14 +1,4 @@
 
-struct Bitmap
-{
-	// this needs to be moved into mLib
-};
-
-struct RGBColor
-{
-	// this needs to be moved into mLib
-};
-
 struct Video
 {
 	void loadFromDirectory(const String &s);

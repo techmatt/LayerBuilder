@@ -14,6 +14,8 @@ void App::go(const CommandLineReader &commandLine)
 	AppParameters params(commandLine.arg(2));
 	const String paletteFile = commandLine.argWithPrefix("palette=");
 	const String seedsFile = commandLine.argWithPrefix("seeds=");
+
+	Bitmap stuff;
 }
 
 void main(int argc, char* argv[])
