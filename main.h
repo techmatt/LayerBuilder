@@ -4,4 +4,4 @@
 #include "appParameters.h"
 
 #include "video.h"
-#include "colorCoordinate.h"
+//#include "colorCoordinate.h"
