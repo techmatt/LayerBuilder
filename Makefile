@@ -2,6 +2,6 @@ NAME=layerbuilder
 
 CCSRCS=main.cpp layerBuilder.cpp video.cpp supervoxelGenerator.cpp mLibSource.cpp 
 
-USER_CFLAGS=-I../../mLib/include -I../../mLib/external/include
+MLIB_RELATIVE_PATH=../../mLib
 
-include ../../mLib/Makefile.app
+include $(MLIB_RELATIVE_PATH)/Makefile.app
