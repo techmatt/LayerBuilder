@@ -12,6 +12,7 @@
 
 #include "mLibCore.h"
 #include "mLibANN.h"
+#include "mLibLodePNG.h"
 
 //
 // It is often best to selectively include eigen to keep the

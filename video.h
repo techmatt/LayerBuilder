@@ -10,5 +10,6 @@ struct Video
 	//Vector<Vec3f> ComputePaletteKMeans(UINT paletteSize) const;
 	//Vector<Vec3f> ComputeFrame0Palette( const Vector<UINT>& frameids, const Vector<String> &filename ) const;
 
+	UINT width, height;
 	Vector<Bitmap> frames;
 };
