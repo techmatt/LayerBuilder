@@ -139,9 +139,9 @@ void SupervoxelGeneratorRegionGrowing::assignVoxel(const AppParameters &paramete
 	_supervoxels[supervoxelIndex].voxels.pushBack(coord);
 
 	const UINT neighborCount = 6;
-	const UINT XOffsets[neighborCount] = {-1, 1, 0, 0,  0, 0};
-	const UINT YOffsets[neighborCount] = {0, 0, -1, 1,  0, 0};
-	const UINT FOffsets[neighborCount] = {0, 0,  0, 0, -1, 1};
+	const int XOffsets[neighborCount] = {-1, 1, 0, 0,  0, 0};
+	const int YOffsets[neighborCount] = {0, 0, -1, 1,  0, 0};
+	const int FOffsets[neighborCount] = {0, 0,  0, 0, -1, 1};
 	for(UINT neighborIndex = 0; neighborIndex < neighborCount; neighborIndex++)
 	{
 		vec3i finalCoord(coord.x + XOffsets[neighborIndex], coord.y + YOffsets[neighborIndex], coord.z + FOffsets[neighborIndex]);

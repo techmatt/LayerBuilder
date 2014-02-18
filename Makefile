@@ -1,6 +1,6 @@
 NAME=layerbuilder
 
-CCSRCS=main.cpp layerBuilder.cpp video.cpp supervoxelGenerator.cpp mLibSource.cpp 
+CCSRCS=main.cpp layerBuilder.cpp video.cpp supervoxelGenerator.cpp mLibSource.cpp
 
 MLIB_RELATIVE_PATH=../../mLib
 

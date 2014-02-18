@@ -4,7 +4,7 @@
 class SupervoxelGenerator
 {
 public:
-	virtual Vector<ColorCoordinate> extract(const AppParameters &parameters, const Video &video);
+	virtual Vector<ColorCoordinate> extract(const AppParameters &parameters, const Video &video) = 0;
 };
 
 class SupervoxelGeneratorRandom : public SupervoxelGenerator
@@ -56,7 +56,7 @@ private:
     vec3i _dimensions;
 };
 
-__forceinline bool operator < (const SupervoxelGeneratorRegionGrowing::QueueEntry &a, const SupervoxelGeneratorRegionGrowing::QueueEntry &b)
+inline bool operator < (const SupervoxelGeneratorRegionGrowing::QueueEntry &a, const SupervoxelGeneratorRegionGrowing::QueueEntry &b)
 {
     return (a.priority < b.priority);
 }
