@@ -18,7 +18,7 @@ void App::go(const CommandLineReader &commandLine)
 	Bitmap stuff;
 }
 
-void main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
 	Console::openLogFile("console.txt");
 
@@ -32,4 +32,6 @@ void main(int argc, char* argv[])
 
 	Console::log("Press any key to continue...");
 	std::cin.get();
+
+	return 0;
 }
