@@ -20,11 +20,11 @@ struct ColorCoordinate
 private:
 	void makeFeatureVector(const AppParameters &parameters, int width, int height)
 	{
-		/*features[0] = color.r / 255.0f;
+		features[0] = color.r / 255.0f;
 		features[1] = color.g / 255.0f;
 		features[2] = color.b / 255.0f;
 		features[3] = coord.x/(float)width * parameters.spatialToColorScale;
 		features[4] = coord.y/(float)height * parameters.spatialToColorScale;
-		features[5] = frame * parameters.temporalToColorScale;*/
+		features[5] = frame * parameters.temporalToColorScale;
 	}
 };

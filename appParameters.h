@@ -1,15 +1,21 @@
 
 struct AppParameters
 {
-	AppParameters(const String &filename)
+	AppParameters(const String &frameIndexilename)
 	{
 
 	}
 
-	double pixelConstraintWeight;
+	double voxelConstraintWeight;
 	double sumToOneWeight;
 	double reconstructionWeight;
 	double regularizationWeight;
 	double negativeSupressionWeight;
-	double manifoldWeight;
+	double maniframeIndexoldWeight;
+
+	float spatialToColorScale;
+	float temporalToColorScale;
+
+	UINT supervoxelCount;
+	UINT regionGrowingIterations;
 };

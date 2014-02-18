@@ -54,4 +54,7 @@
       <UniqueIdentifier>{0b8022a0-79e7-4276-a263-e6e37c624880}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TODO.md" />
+  </ItemGroup>
 </Project>
