@@ -1,8 +1,8 @@
 
 struct Video
 {
-	void loadFromDirectory(const String &s);
-	void loadFromImage(const String &s);
+	void loadFromImage(const String &filename);
+	void loadFromDirectory(const String &directory);
 
 	//UINT Width() const  { return frames[0].width();  }
 	//UINT Height() const { return frames[0].height(); }

@@ -1,11 +1,11 @@
 
-struct ColorCoordinate
+struct VideoCoordinate
 {
-	ColorCoordinate()
+	VideoCoordinate()
 	{
 
 	}
-	ColorCoordinate(const AppParameters &parameters, RGBColor _color, vec2i _coord, UINT _frame, int width, int height)
+	VideoCoordinate(const AppParameters &parameters, RGBColor _color, vec2i _coord, UINT _frame, int width, int height)
 	{
 		color = _color;
 		coord = _coord;

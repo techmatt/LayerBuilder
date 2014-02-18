@@ -19,6 +19,9 @@
     <ClCompile Include="..\layerBuilder.cpp">
       <Filter>LayerBuilder</Filter>
     </ClCompile>
+    <ClCompile Include="..\layer.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\mLibInclude.h">
@@ -30,9 +33,6 @@
     <ClInclude Include="..\appParameters.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\colorCoordinate.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\video.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -41,6 +41,15 @@
     </ClInclude>
     <ClInclude Include="..\layerBuilder.h">
       <Filter>LayerBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\layer.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\videoCoordinate.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mathHelper.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

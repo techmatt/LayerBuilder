@@ -4,13 +4,13 @@
 class SupervoxelGenerator
 {
 public:
-	virtual Vector<ColorCoordinate> extract(const AppParameters &parameters, const Video &video) = 0;
+	virtual Vector<VideoCoordinate> extract(const AppParameters &parameters, const Video &v) = 0;
 };
 
 class SupervoxelGeneratorRandom : public SupervoxelGenerator
 {
 public:
-	Vector<ColorCoordinate> extract(const AppParameters &parameters, const Video &video);
+	Vector<VideoCoordinate> extract(const AppParameters &parameters, const Video &v);
 };
 
 struct Supervoxel
@@ -38,7 +38,7 @@ public:
 		UINT supervoxelIndex;
 	};
 
-	Vector<ColorCoordinate> extract(const AppParameters &parameters, const Video &v);
+	Vector<VideoCoordinate> extract(const AppParameters &parameters, const Video &v);
     void extract(const AppParameters &parameters, const Video &v, Vector<Supervoxel> &supervoxelsOut, Vector< Grid<UINT> > &assignmentsOut);
 
 private:
@@ -47,7 +47,7 @@ private:
     void growSupervoxels(const AppParameters &parameters, const Video &v);
     void recenterSupervoxels(const AppParameters &parameters, const Video &v);
     
-    static void drawSupervoxelIDs(const Vector< Grid<UINT> > &supervoxelIDs, Video &v, int startFrameIndex, int frameCount);
+    void drawSupervoxelIDs(Video &v, int startFrameIndex, int frameCount);
     void drawSupervoxelColors(const Video &inputVid, Video &outputVid, int startFrameIndex, int frameCount);
 
     Vector<Supervoxel> _supervoxels;

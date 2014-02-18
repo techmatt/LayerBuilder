@@ -1,15 +1,15 @@
 
 #include "Main.h"
 
-Vector<ColorCoordinate> SupervoxelGeneratorRandom::extract(const AppParameters &parameters, const Video &video)
+Vector<VideoCoordinate> SupervoxelGeneratorRandom::extract(const AppParameters &parameters, const Video &video)
 {
-	Vector<ColorCoordinate> result;
+	Vector<VideoCoordinate> result;
 	for(UINT supervoxelIndex = 0; supervoxelIndex < parameters.supervoxelCount; supervoxelIndex++)
 	{
 		UINT frame = rand() % video.frames.size();
 		UINT x = rand() % video.width;
 		UINT y = rand() % video.height;
-		ColorCoordinate coord(parameters, video.frames[frame](y, x), vec2i(x, y), frame, video.width, video.height);
+		VideoCoordinate coord(parameters, video.frames[frame](y, x), vec2i(x, y), frame, video.width, video.height);
 		result.pushBack(coord);
 	}
 	return result;
@@ -59,16 +59,16 @@ void Supervoxel::computeColor( const Video &v )
 	color /= (float)voxels.size();
 }
 
-Vector<ColorCoordinate> SupervoxelGeneratorRegionGrowing::extract(const AppParameters &parameters, const Video &v)
+Vector<VideoCoordinate> SupervoxelGeneratorRegionGrowing::extract(const AppParameters &parameters, const Video &v)
 {
 	Vector<Supervoxel> supervoxelsOut;
 	Vector< Grid<UINT> > assignmentsOut;
 	extract(parameters, v, supervoxelsOut, assignmentsOut);
 
-	Vector<ColorCoordinate> result;
+	Vector<VideoCoordinate> result;
 	for(const Supervoxel &p : supervoxelsOut)
 	{
-		result.pushBack(ColorCoordinate(parameters, RGBColor(p.color), vec2i(p.seed.x, p.seed.y), p.seed.z, v.width, v.height));
+		result.pushBack(VideoCoordinate(parameters, RGBColor(p.color), vec2i(p.seed.x, p.seed.y), p.seed.z, v.width, v.height));
 	}
 	return result;
 }
@@ -85,22 +85,34 @@ void SupervoxelGeneratorRegionGrowing::extract(const AppParameters &parameters, 
 
 	initializeSupervoxels(parameters, v);
 
+	const UINT vizFrameCount = Math::min(parameters.supervoxelVisualizationFrameCount, (UINT)v.frames.size());
+
+	auto vizHelper = [vizFrameCount](int iteration, int frameIndex, const String &descriptor)
+	{
+		String iterationDesc = "_i" + String(iteration);
+		if(iteration == -1) iterationDesc = "Final";
+
+		String frameDesc = "_f" + String(frameIndex);
+		if(vizFrameCount == 1) frameDesc = "";
+		
+		return "supervoxel" + descriptor + iterationDesc + frameDesc + ".png";
+	};
+
 	for(UINT iterationIndex = 0; iterationIndex < parameters.regionGrowingIterations; iterationIndex++)
 	{
 		Console::log("starting supervoxel iteration " + String(iterationIndex));
 		//ComponentTimer timer( "Iteration " + String(iterationIndex) );
 		growSupervoxels(parameters, v);
 
-		const bool dumpIntermediateResults = true;
-		if(dumpIntermediateResults)
+		if(parameters.visualizeIntermediateSupervoxels)
 		{
 			Video clusterVid0, clusterVid1;
-			drawSupervoxelIDs(_assignments, clusterVid0, 0, 5);
-			drawSupervoxelColors(v, clusterVid1, 0, 5);
-			// save first couple frames
-			for (int frameIndex = 0; frameIndex < Math::min((UINT64)5, v.frames.size()); frameIndex++) {
-				//clusterVid0.frames[frameIndex].SavePNG("clustersIteration" + String(iterationIndex) + "_f" + String(frameIndex) + ".png");
-				//clusterVid1.frames[frameIndex].SavePNG("colorsIteration" + String(iterationIndex) + "_f" + String(frameIndex) + ".png");
+			drawSupervoxelIDs(clusterVid0, 0, vizFrameCount);
+			drawSupervoxelColors(v, clusterVid1, 0, vizFrameCount);
+			for (UINT frameIndex = 0; frameIndex < vizFrameCount; frameIndex++)
+			{
+				LodePNG::save(clusterVid0.frames[frameIndex], vizHelper(iterationIndex, frameIndex, "Clusters"));
+				LodePNG::save(clusterVid1.frames[frameIndex], vizHelper(iterationIndex, frameIndex, "Colors"));
 			}
 		}
 
@@ -110,6 +122,18 @@ void SupervoxelGeneratorRegionGrowing::extract(const AppParameters &parameters, 
 	growSupervoxels(parameters, v);
 	for(Supervoxel &p : _supervoxels)
 		p.computeColor(v);
+
+	if(parameters.visualizeFinalSupervoxels)
+	{
+		Video clusterVid0, clusterVid1;
+		drawSupervoxelIDs(clusterVid0, 0, vizFrameCount);
+		drawSupervoxelColors(v, clusterVid1, 0, vizFrameCount);
+		for (UINT frameIndex = 0; frameIndex < vizFrameCount; frameIndex++)
+		{
+			LodePNG::save(clusterVid0.frames[frameIndex], vizHelper(-1, frameIndex, "Clusters"));
+			LodePNG::save(clusterVid1.frames[frameIndex], vizHelper(-1, frameIndex, "Colors"));
+		}
+	}
 
 	supervoxelsOut = std::move(_supervoxels);
 	assignmentsOut = std::move(_assignments);
@@ -204,26 +228,26 @@ void SupervoxelGeneratorRegionGrowing::recenterSupervoxels(const AppParameters &
 	}
 }
 
-void SupervoxelGeneratorRegionGrowing::drawSupervoxelIDs(const Vector< Grid<UINT> > &supervoxelIDs, Video &v, int startFrameIndex, int frameCount)
+void SupervoxelGeneratorRegionGrowing::drawSupervoxelIDs(Video &v, int startFrameIndex, int frameCount)
 {
 	UINT supervoxelMaxValue = 0;
-	for (UINT i = 0; i < supervoxelIDs.size(); i++)
-		supervoxelMaxValue = Math::max(supervoxelMaxValue, supervoxelIDs[i].maxValue());
+	for (UINT i = 0; i < _assignments.size(); i++)
+		supervoxelMaxValue = Math::max(supervoxelMaxValue, _assignments[i].maxValue());
 
 	const UINT clusterCount = supervoxelMaxValue + 1;
 	Vector<RGBColor> colors(clusterCount);
 	for(RGBColor &c : colors) c = RGBColor::randomColor();
 	
 	v.frames.allocate(frameCount);
-	const UINT height = supervoxelIDs[0].rows();
-	const UINT width = supervoxelIDs[0].cols();
+	const UINT height = _assignments[0].rows();
+	const UINT width = _assignments[0].cols();
 	for (int frameIndex = startFrameIndex; frameIndex < startFrameIndex + frameCount; frameIndex++)
 	{
 		v.frames[frameIndex - startFrameIndex].allocate(width, height);
 
 		for(UINT y = 0; y < height; y++)
 			for(UINT x = 0; x < width; x++)
-				v.frames[frameIndex - startFrameIndex](y, x) = colors[supervoxelIDs[frameIndex](y, x)];
+				v.frames[frameIndex - startFrameIndex](y, x) = colors[_assignments[frameIndex](y, x)];
 	}
 }
 
