@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 						  String("video usage: layerBuilder videos/inputVid/ output.layers parameters.txt <palette=palette.txt> <seeds=seeds.txt>");
 
 	//CommandLineReader commandLine(usage, argc, argv);
-	CommandLineReader commandLine(usage, "face.png face.layers parameters.txt palette=facePalette.txt seeds=faceSeeds.txt");
+	CommandLineReader commandLine(usage, "../testData/angel.png angel.layers parameters.txt palette=facePalette.txt seeds=faceSeeds.txt");
 
 	App a;
 	a.go(commandLine);

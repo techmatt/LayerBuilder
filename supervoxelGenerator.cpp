@@ -243,7 +243,7 @@ void SupervoxelGeneratorRegionGrowing::drawSupervoxelIDs(Video &v, int startFram
 	const UINT width = _assignments[0].cols();
 	for (int frameIndex = startFrameIndex; frameIndex < startFrameIndex + frameCount; frameIndex++)
 	{
-		v.frames[frameIndex - startFrameIndex].allocate(width, height);
+		v.frames[frameIndex - startFrameIndex].allocate(height, width); //TODO: change this if we switch bitmap back to width-height!
 
 		for(UINT y = 0; y < height; y++)
 			for(UINT x = 0; x < width; x++)
@@ -258,7 +258,7 @@ void SupervoxelGeneratorRegionGrowing::drawSupervoxelColors(const Video &inputVi
 	outputVid.frames.allocate(frameCount);
 	for (int frameIndex = 0; frameIndex < frameCount; frameIndex++)
 	{
-		outputVid.frames[frameIndex].allocate(width, height);
+		outputVid.frames[frameIndex].allocate(height, width); //TODO: change this if we switch bitmap back to width-height!
 		for(UINT y = 0; y < height; y++)
 			for(UINT x = 0; x < width; x++)
 			{

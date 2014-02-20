@@ -3,7 +3,17 @@ struct AppParameters
 {
 	AppParameters(const String &frameIndexilename)
 	{
+		pixelNeighborCount = 20;
+		supervoxelNeighborCount = 20;
+		spatialToColorScale = 0.1f;
+		temporalToColorScale = 0.1f;
 
+		supervoxelCount = 2000;
+		regionGrowingIterations = 5;
+
+		visualizeIntermediateSupervoxels = true;
+		visualizeFinalSupervoxels = true;
+		supervoxelVisualizationFrameCount = 5;
 	}
 
 	double voxelConstraintWeight;
