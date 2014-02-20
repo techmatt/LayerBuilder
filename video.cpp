@@ -12,8 +12,10 @@ void Video::loadFromImage(const String &filename)
 void Video::loadFromDirectory(const String &directory)
 {
 	Directory dir(directory);
-	for(const String &filename : dir.filesWithSuffix(".png"))
-		frames.pushBack(LodePNG::load(filename));
+	Vector<String> sortedFiles = dir.filesWithSuffix(".png");
+	sortedFiles.sort();
+	for(const String &filename : sortedFiles)
+		frames.pushBack(LodePNG::load(dir.path() + filename));
 	width = frames[0].cols();
 	height = frames[0].rows();
 }
