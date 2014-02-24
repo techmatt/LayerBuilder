@@ -12,8 +12,8 @@ SupervoxelLayerSet LayerBuilder::buildSupervoxelLayers(const AppParameters &para
 	ComputeEnergyMatrix(parameters, supervoxels, palette, explicitConstraints);
 
 	UINT negativeSuppressionIters = parameters.negativeSuppressionIters;
-	UINT numSupervoxels = supervoxels.size();
-	UINT numLayers = palette.size();
+	UINT numSupervoxels = (UINT)supervoxels.size();
+	UINT numLayers = (UINT)palette.size();
 	
 	//
 	// Do the layer solve
@@ -89,7 +89,7 @@ void LayerBuilder::ComputeNeighborWeights(const AppParameters &parameters, const
 
 void LayerBuilder::ComputeWeightMatrix(const AppParameters &parameters) 
 {
-	_W = SparseMatrix<double>(_neighborhoods.size(), _neighborhoods.size());
+	_W = SparseMatrix<double>((UINT)_neighborhoods.size(), (UINT)_neighborhoods.size());
 	for (UINT supervoxelIndex=0; supervoxelIndex < _neighborhoods.size(); supervoxelIndex++)
 	{
 		const SupervoxelNeighborhood &neighborhood = _neighborhoods[supervoxelIndex];
@@ -102,8 +102,8 @@ void LayerBuilder::ComputeWeightMatrix(const AppParameters &parameters)
 
 void LayerBuilder::ComputeEnergyMatrix(const AppParameters &parameters, const Vector<VideoCoordinate> &supervoxels, const Palette &palette, const Vector<SupervoxelLayerConstraint> &explicitConstraints) 
 {
-	UINT numSupervoxels = supervoxels.size();
-	UINT numLayers = palette.size();
+	UINT numSupervoxels = (UINT)supervoxels.size();
+	UINT numLayers = (UINT)palette.size();
 	UINT numContributions = numSupervoxels*numLayers;
 
 	//

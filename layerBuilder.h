@@ -31,7 +31,7 @@ struct Palette
 	{
 	}
 
-	Palette(String filename)
+	Palette(const String &filename)
 	{
 		Vector<String> lines = Utility::getFileLines(filename);
 		if (lines.size() == 0)
@@ -40,7 +40,7 @@ struct Palette
 		for (UINT colorIndex=0; colorIndex < colorStrings.size(); colorIndex++)
 		{
 			Vector<String> fields = colorStrings[colorIndex].split(",");
-			colors.pushBack(vec3f(fields[0].toInt32()/255.0, fields[1].toInt32()/255.0, fields[2].toInt32()/255.0));
+			colors.pushBack(vec3f(fields[0].toInt32()/255.0f, fields[1].toInt32()/255.0f, fields[2].toInt32()/255.0f));
 		}
 	}
 
@@ -56,7 +56,7 @@ struct Palette
 
 	UINT size() const
 	{
-		return colors.size();
+		return (UINT)colors.size();
 	}
 
 	Vector<vec3f> colors;

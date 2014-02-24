@@ -34,7 +34,7 @@ public:
 		for(UINT neighborIndex = 0; neighborIndex < k; neighborIndex++)
 			G(neighborIndex, neighborIndex) += parameters.linearEmbeddingRegularizationTerm;
 		
-		//G.InvertInPlace();
+		G.invertInPlace();
 
 		Vector<double> columnVector(k, 1.0);
 		Vector<double> result = SparseMatrix<double>::multiply(G, columnVector);
