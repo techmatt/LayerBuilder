@@ -22,6 +22,7 @@ struct AppParameters
 		reconstructionWeight = 0.5;
 		negativeSuppressionWeight = 0.01;
 
+		linearEmbeddingRegularizationTerm = 0.000001; 
 	}
 
 	double voxelConstraintWeight;

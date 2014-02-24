@@ -83,6 +83,22 @@ void LayerBuilder::ComputeNeighborWeights(const AppParameters &parameters, const
 		_neighborhoods[supervoxelIndex].indices = neighborIndices;
 		_neighborhoods[supervoxelIndex].embeddingWeights = MathHelper::linearEmbedding(parameters, supervoxels, neighborIndices, supervoxels[supervoxelIndex].features);
 
+		const bool testLinearEmbedding = false;
+		if(testLinearEmbedding)
+		{
+			Vector<double> reconstruction(3, 0.0);
+			for(UINT neighborIndex = 0; neighborIndex < (UINT)neighborIndices.size(); neighborIndex++)
+			{
+				for(UINT dimension = 0; dimension < 3; dimension++)
+				{
+					reconstruction[dimension] += _neighborhoods[supervoxelIndex].embeddingWeights[neighborIndex] * supervoxels[neighborIndices[neighborIndex]].features[dimension];
+				}
+			}
+			double maxDelta = 0.0;
+			for(UINT dimension = 0; dimension < 3; dimension++)
+				maxDelta = Math::max(maxDelta, fabs(reconstruction[dimension] - (double)supervoxels[supervoxelIndex].features[dimension]));
+			Console::log(String(maxDelta));
+		}
 	}
 
 }
