@@ -8,20 +8,31 @@ struct AppParameters
 		spatialToColorScale = 0.1f;
 		temporalToColorScale = 0.1f;
 
+		negativeSuppressionIters = 3;
+
 		supervoxelCount = 2000;
 		regionGrowingIterations = 5;
 
 		visualizeIntermediateSupervoxels = true;
 		visualizeFinalSupervoxels = true;
 		supervoxelVisualizationFrameCount = 5;
+
+		voxelConstraintWeight = 0.1;
+		sumToOneWeight = 0.1;
+		reconstructionWeight = 0.5;
+		negativeSuppressionWeight = 0.01;
+
 	}
 
 	double voxelConstraintWeight;
 	double sumToOneWeight;
 	double reconstructionWeight;
 	double regularizationWeight;
-	double negativeSupressionWeight;
+	double negativeSuppressionWeight;
 	double maniframeIndexoldWeight;
+
+	int negativeSuppressionIters;
+
 
 	//
 	// linear embedding neighborhood sizes

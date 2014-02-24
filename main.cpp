@@ -41,10 +41,17 @@ void App::go(const CommandLineReader &commandLine)
 	supervoxelSearch.init(supervoxelCoordinates, 6, Math::max(parameters.pixelNeighborCount, parameters.supervoxelNeighborCount) + 1);
 
 	//
+	// Process palette and constraints
+	//
+	Palette palette(paletteFile);
+
+	Vector<SupervoxelLayerConstraint> explicitConstraints;
+
+	//
 	// Build the layers
 	//
 	LayerBuilder builder;
-	SupervoxelLayerSet supervoxelLayers = builder.buildSupervoxelLayers(parameters, v, supervoxels, supervoxelSearch);
+	SupervoxelLayerSet supervoxelLayers = builder.buildSupervoxelLayers(parameters, v, supervoxels, supervoxelSearch, palette, explicitConstraints);
 
 	//
 	// Generate the pixel layers and immediately save them to a binary file
@@ -53,6 +60,7 @@ void App::go(const CommandLineReader &commandLine)
 	{
 		PixelLayerSet frameLayers = PixelLayerSet(parameters, v, frameIndex, supervoxels, supervoxelSearch, supervoxelLayers);
 		//frameLayers.save("");
+		frameLayers.savePNG("frame-"+String(frameIndex)+"-layer");
 	}
 }
 
@@ -64,8 +72,8 @@ int main(int argc, char* argv[])
 						  String("video usage: layerBuilder videos/inputVid/ output.layers parameters.txt <palette=palette.txt> <seeds=seeds.txt>");
 
 	//CommandLineReader commandLine(usage, argc, argv);
-	//CommandLineReader commandLine(usage, "../testData/angel.png angel.layers parameters.txt palette=facePalette.txt seeds=faceSeeds.txt");
-	CommandLineReader commandLine(usage, "../testData/bigbuckbunny/ angel.layers parameters.txt palette=facePalette.txt seeds=faceSeeds.txt");
+	CommandLineReader commandLine(usage, "../testData/angel.png angel.layers parameters.txt palette=../testData/angelPalette.txt seeds=faceSeeds.txt");
+	//CommandLineReader commandLine(usage, "../testData/bigbuckbunny/ angel.layers parameters.txt palette=facePalette.txt seeds=faceSeeds.txt");
 
 	App a;
 	a.go(commandLine);

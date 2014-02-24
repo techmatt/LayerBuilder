@@ -39,3 +39,36 @@ PixelLayerSet::PixelLayerSet(const AppParameters &parameters, const Video &v, UI
 			}
 		}
 }
+
+void PixelLayerSet::savePNG(const String baseName)
+{
+	//
+	// Visualize the weights. Red is negative. Green indicates greater than 1
+	//
+	vec3f green(0,1,0);
+	vec3f white(1,1,1);
+	vec3f red(1,0,0);
+
+	for (UINT layerIndex=0; layerIndex < layers.size(); layerIndex++)
+	{
+		Bitmap result(layers[layerIndex].pixelWeights.rows(), layers[layerIndex].pixelWeights.cols());
+		for (UINT r=0; r<result.rows(); r++)
+		{
+			for (UINT c=0; c<result.cols(); c++)
+			{
+				float weight = layers[layerIndex].pixelWeights(r,c);
+				
+				if (weight < 0)
+					result(r,c) = RGBColor(abs(weight)*red);
+				else if (weight > 1)
+				{
+					float interp = Math::min(weight - 1, 1.0f);
+					result(r,c) = RGBColor(interp*green + (1-interp)*white);
+				} else
+					result(r,c) = RGBColor(weight*white);
+			}
+		}
+		LodePNG::save(result, baseName+String(layerIndex)+".png");
+	}
+
+}
