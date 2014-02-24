@@ -1,13 +1,13 @@
 #TODO
 
-* Supervoxel solve (video) - Matt
+* Make a new commandline exe for recoloring - Matt
+* Recoloring UI that calls the exes on the commandline - Sharon
+* DenseMatrix class - Matt
+* Binary writing/reading classes
+* Binary writing/reading files (using old Output/InputDataStreams for now) - Sharon
+* Caching superpixels - Matt
+* Determine palette and seeds from png - Sharon
 
-* Layer solve (and make it QR friendly) 
-	* Create the Layer, Palette, and other related classes - Sharon
-
-* Make mLib cross-platform - Angela
-
-* Multi-threading the pixel layer solve and the supervoxel solve
 
 There was a significant bug in the video-extraction code in LocallyLinearEmbedding, LayerExtractorVideo.cpp:
  -- tree.BuildTree(points, 5, Math::Max(parameters.pixelNeighborCount, parameters.superpixelNeighborCount) + 1);

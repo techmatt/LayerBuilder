@@ -18,4 +18,4 @@
 // It is often best to selectively include eigen to keep the
 // pre-compiled header to a reasonable size.
 //
-//#include "mLibEigen.h"
+#include "mLibEigen.h"
