@@ -18,7 +18,7 @@ public:
 		//
 		// We don't have dense matrices yet, so sparse matrices are used instead so it compiles.
 		//
-		SparseMatrix<double> z(k, 3);
+		DenseMatrix<double> z(k, 3);
 		for(UINT neighborIndex = 0; neighborIndex < k; neighborIndex++)
 		{
 			const VideoCoordinate &neighbor = supervoxels[supervoxelIndices[neighborIndex]];
@@ -26,7 +26,7 @@ public:
 				z(neighborIndex, dimensionIndex) = neighbor.features[dimensionIndex] - pixelFeatures[dimensionIndex];
 		}
 
-		SparseMatrix<double> G = z * z.transpose();
+		DenseMatrix<double> G = z * z.transpose();
 
 		//
 		// Add weight regularization term
@@ -37,7 +37,7 @@ public:
 		G.invertInPlace();
 
 		Vector<double> columnVector(k, 1.0);
-		Vector<double> result = SparseMatrix<double>::multiply(G, columnVector);
+		Vector<double> result = DenseMatrix<double>::multiply(G, columnVector);
 
 		result.scale(1.0 / result.sum());
 

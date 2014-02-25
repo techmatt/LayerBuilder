@@ -13,7 +13,7 @@ struct AppParameters
 		supervoxelCount = 2000;
 		regionGrowingIterations = 5;
 
-		visualizeIntermediateSupervoxels = true;
+		visualizeIntermediateSupervoxels = false;
 		visualizeFinalSupervoxels = true;
 		supervoxelVisualizationFrameCount = 5;
 
