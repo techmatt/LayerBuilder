@@ -51,7 +51,7 @@ struct PixelLayerSet
 		layers = std::move(s.layers);
 	}
 
-	void savePNG(const String baseName);
+	void savePNG(const std::string baseName);
 	
 
 	Vector<PixelLayer> layers;

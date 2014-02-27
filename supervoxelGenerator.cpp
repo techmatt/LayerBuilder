@@ -17,7 +17,7 @@ Vector<VideoCoordinate> SupervoxelGeneratorRandom::extract(const AppParameters &
 
 void Supervoxel::reset(const Video &v, const vec3i &_seed)
 {
-	voxels.deleteMemory();
+	voxels.clear();
 	seed = _seed;
 	voxels.pushBack(seed);
 }
@@ -75,24 +75,24 @@ Vector<VideoCoordinate> SupervoxelGeneratorRegionGrowing::extract(const AppParam
 
 void SupervoxelGeneratorRegionGrowing::extract(const AppParameters &parameters, const Video &v, Vector<Supervoxel> &supervoxelsOut, Vector< Grid<UINT> > &assignmentsOut)
 {
-	ComponentTimer timer( "segmenting video: " + String(v.width) + "x" + String(v.height) + ", " + String(v.frames.size()) + " frames" );
+	ComponentTimer timer( "segmenting video: " + Convert::toString(v.width) + "x" + Convert::toString(v.height) + ", " + Convert::toString(v.frames.size()) + " frames" );
 
 	_dimensions = vec3i(v.width, v.height, (int)v.frames.size());
-	_assignments.allocate(v.frames.size());
+	_assignments.resize(v.frames.size());
 	for (UINT i = 0; i < v.frames.size(); i++)
 		_assignments[i].allocate(_dimensions.y, _dimensions.x);
-	_supervoxels.allocate(parameters.supervoxelCount);
+	_supervoxels.resize(parameters.supervoxelCount);
 
 	initializeSupervoxels(parameters, v);
 
 	const UINT vizFrameCount = Math::min(parameters.supervoxelVisualizationFrameCount, (UINT)v.frames.size());
 
-	auto vizHelper = [vizFrameCount](int iteration, int frameIndex, const String &descriptor)
+	auto vizHelper = [vizFrameCount](int iteration, int frameIndex, const std::string &descriptor)
 	{
-		String iterationDesc = "_i" + String(iteration);
+		std::string iterationDesc = "_i" + Convert::toString(iteration);
 		if(iteration == -1) iterationDesc = "Final";
 
-		String frameDesc = "_f" + String(frameIndex);
+		std::string frameDesc = "_f" + Convert::toString(frameIndex);
 		if(vizFrameCount == 1) frameDesc = "";
 		
 		return "supervoxel" + descriptor + iterationDesc + frameDesc + ".png";
@@ -100,8 +100,8 @@ void SupervoxelGeneratorRegionGrowing::extract(const AppParameters &parameters, 
 
 	for(UINT iterationIndex = 0; iterationIndex < parameters.regionGrowingIterations; iterationIndex++)
 	{
-		Console::log("starting supervoxel iteration " + String(iterationIndex));
-		//ComponentTimer timer( "Iteration " + String(iterationIndex) );
+		Console::log("starting supervoxel iteration " + Convert::toString(iterationIndex));
+		//ComponentTimer timer( "Iteration " + std::string(iterationIndex) );
 		growSupervoxels(parameters, v);
 
 		if(parameters.visualizeIntermediateSupervoxels)
@@ -238,7 +238,7 @@ void SupervoxelGeneratorRegionGrowing::drawSupervoxelIDs(Video &v, int startFram
 	Vector<RGBColor> colors(clusterCount);
 	for(RGBColor &c : colors) c = RGBColor::randomColor();
 	
-	v.frames.allocate(frameCount);
+	v.frames.resize(frameCount);
 	const UINT height = _assignments[0].rows();
 	const UINT width = _assignments[0].cols();
 	for (int frameIndex = startFrameIndex; frameIndex < startFrameIndex + frameCount; frameIndex++)
@@ -255,7 +255,7 @@ void SupervoxelGeneratorRegionGrowing::drawSupervoxelColors(const Video &inputVi
 {
 	const UINT height = _assignments[0].rows();
 	const UINT width = _assignments[0].cols();
-	outputVid.frames.allocate(frameCount);
+	outputVid.frames.resize(frameCount);
 	for (int frameIndex = 0; frameIndex < frameCount; frameIndex++)
 	{
 		outputVid.frames[frameIndex].allocate(height, width); //TODO: change this if we switch bitmap back to width-height!

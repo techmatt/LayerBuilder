@@ -28,7 +28,7 @@ SupervoxelLayerSet LayerBuilder::buildSupervoxelLayers(const AppParameters &para
 	//
 	for (UINT i=0; i<negativeSuppressionIters; i++)
 	{
-		Console::log("Negative suppression iteration "+String(i));
+		Console::log("Negative suppression iteration " + Convert::toString(i));
 		for (UINT contributionIndex=0; contributionIndex < layerWeights.size(); contributionIndex++)
 			if (layerWeights[contributionIndex] < 0)
 				negativeSuppressionWeights[contributionIndex] += parameters.negativeSuppressionWeight; 
@@ -70,7 +70,7 @@ Vector<double> LayerBuilder::extractSupervoxelLayers(const AppParameters &parame
 
 void LayerBuilder::ComputeNeighborWeights(const AppParameters &parameters, const Video &v, const Vector<VideoCoordinate> &supervoxels, NearestNeighborSearchANN<float> &supervoxelSearch)
 {
-	_neighborhoods.allocate(supervoxels.size(), SupervoxelNeighborhood());
+	_neighborhoods.resize(supervoxels.size(), SupervoxelNeighborhood());
 
 	for (UINT supervoxelIndex=0; supervoxelIndex < supervoxels.size(); supervoxelIndex++)
 	{
@@ -97,7 +97,7 @@ void LayerBuilder::ComputeNeighborWeights(const AppParameters &parameters, const
 			double maxDelta = 0.0;
 			for(UINT dimension = 0; dimension < 3; dimension++)
 				maxDelta = Math::max(maxDelta, fabs(reconstruction[dimension] - (double)supervoxels[supervoxelIndex].features[dimension]));
-			Console::log(String(maxDelta));
+			Console::log(Convert::toString(maxDelta));
 		}
 	}
 

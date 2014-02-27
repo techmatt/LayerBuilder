@@ -8,7 +8,7 @@ PixelLayerSet::PixelLayerSet(const AppParameters &parameters, const Video &v, UI
 	//
 
 	const UINT layerCount = (UINT)supervoxelLayers.layers.size();
-	layers.allocate(layerCount);
+	layers.resize(layerCount);
 	for(UINT layerIndex = 0; layerIndex < layerCount; layerIndex++)
 	{
 		PixelLayer &layer = layers[layerIndex];
@@ -40,7 +40,7 @@ PixelLayerSet::PixelLayerSet(const AppParameters &parameters, const Video &v, UI
 		}
 }
 
-void PixelLayerSet::savePNG(const String baseName)
+void PixelLayerSet::savePNG(const std::string baseName)
 {
 	//
 	// Visualize the weights. Red is negative. Green indicates greater than 1
@@ -68,7 +68,7 @@ void PixelLayerSet::savePNG(const String baseName)
 					result(r,c) = RGBColor(weight*white);
 			}
 		}
-		LodePNG::save(result, baseName+String(layerIndex)+".png");
+		LodePNG::save(result, baseName + Convert::toString(layerIndex) + ".png");
 	}
 
 }

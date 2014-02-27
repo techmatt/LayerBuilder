@@ -31,16 +31,16 @@ struct Palette
 	{
 	}
 
-	Palette(const String &filename)
+	Palette(const std::string &filename)
 	{
-		Vector<String> lines = Utility::getFileLines(filename);
+		Vector<std::string> lines = Utility::getFileLines(filename);
 		if (lines.size() == 0)
 			return;
-		Vector<String> colorStrings = lines[0].split(" ");
+		Vector<std::string> colorStrings = StringUtil::split(lines[0], " ");
 		for (UINT colorIndex=0; colorIndex < colorStrings.size(); colorIndex++)
 		{
-			Vector<String> fields = colorStrings[colorIndex].split(",");
-			colors.pushBack(vec3f(fields[0].toInt32()/255.0f, fields[1].toInt32()/255.0f, fields[2].toInt32()/255.0f));
+			Vector<std::string> fields = StringUtil::split(colorStrings[colorIndex], ",");
+			colors.pushBack(vec3f( Convert::toInt(fields[0])/255.0f, Convert::toInt(fields[1])/255.0f, Convert::toInt(fields[2])/255.0f));
 		}
 	}
 

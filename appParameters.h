@@ -1,7 +1,7 @@
 
 struct AppParameters
 {
-	AppParameters(const String &frameIndexilename)
+	AppParameters(const std::string &frameIndexilename)
 	{
 		pixelNeighborCount = 20;
 		supervoxelNeighborCount = 20;

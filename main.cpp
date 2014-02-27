@@ -9,14 +9,14 @@ public:
 
 void App::go(const CommandLineReader &commandLine)
 {
-	const String inputFile = commandLine.arg(0);
-	const String outputFile = commandLine.arg(1);
+	const std::string inputFile = commandLine.arg(0);
+	const std::string outputFile = commandLine.arg(1);
 	AppParameters parameters(commandLine.arg(2));
-	const String paletteFile = commandLine.argWithPrefix("palette=");
-	const String seedsFile = commandLine.argWithPrefix("seeds=");
+	const std::string paletteFile = commandLine.argWithPrefix("palette=");
+	const std::string seedsFile = commandLine.argWithPrefix("seeds=");
 
 	Video v;
-	if(inputFile.endsWith(".png"))
+	if(StringUtil::endsWith(inputFile, ".png"))
 		v.loadFromImage(inputFile);
 	else
 		v.loadFromDirectory(inputFile);
@@ -60,7 +60,7 @@ void App::go(const CommandLineReader &commandLine)
 	{
 		PixelLayerSet frameLayers = PixelLayerSet(parameters, v, frameIndex, supervoxels, supervoxelSearch, supervoxelLayers);
 		//frameLayers.save("");
-		frameLayers.savePNG("frame-"+String(frameIndex)+"-layer");
+		frameLayers.savePNG("frame-" + Convert::toString(frameIndex) + "-layer");
 	}
 }
 
@@ -68,12 +68,14 @@ int main(int argc, char* argv[])
 {
 	Console::openLogFile("console.txt");
 
-	const String &usage = String("image usage: layerBuilder input.png output.layers parameters.txt <palette=palette.txt> <seeds=seeds.txt>\n") +
-						  String("video usage: layerBuilder videos/inputVid/ output.layers parameters.txt <palette=palette.txt> <seeds=seeds.txt>");
+	const std::string &usage = std::string("image usage: layerBuilder input.png output.layers parameters.txt <palette=palette.txt> <seeds=seeds.txt>\n") +
+						  std::string("video usage: layerBuilder videos/inputVid/ output.layers parameters.txt <palette=palette.txt> <seeds=seeds.txt>");
 
 	//CommandLineReader commandLine(usage, argc, argv);
 	CommandLineReader commandLine(usage, "../testData/angel.png angel.layers parameters.txt palette=../testData/angelPalette.txt seeds=faceSeeds.txt");
 	//CommandLineReader commandLine(usage, "../testData/bigbuckbunny/ angel.layers parameters.txt palette=facePalette.txt seeds=faceSeeds.txt");
+
+	
 
 	App a;
 	a.go(commandLine);

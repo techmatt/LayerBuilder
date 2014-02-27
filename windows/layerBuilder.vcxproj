@@ -48,9 +48,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>../../../mLib/include/;../../../mLib/external/include/;$(IncludePath)</IncludePath>
+    <IncludePath>../../../mLib/include/;../../../mLibExternal/include/;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)..\bin\</OutDir>
-    <LibraryPath>../../../mLib/external/lib64/;$(LibraryPath)</LibraryPath>
+    <LibraryPath>../../../mLibExternal/libsWindows/lib64/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
