@@ -3,8 +3,9 @@
 // mLib config options
 //
 
+#ifdef DEBUG
 #define MLIB_ERROR_CHECK
-#define MLIB_BOUNDS_CHECK
+#endif
 
 //
 // mLib includes

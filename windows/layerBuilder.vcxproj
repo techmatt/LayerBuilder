@@ -42,8 +42,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>../../../mLib/include/;../../../mLib/external/include/;$(IncludePath)</IncludePath>
-    <LibraryPath>../../../mLib/external/lib64/;$(LibraryPath)</LibraryPath>
+    <IncludePath>../../../mLib/include/;../../../mLibExternal/include/;$(IncludePath)</IncludePath>
+    <LibraryPath>../../../mLibExternal/libsWindows/lib64/;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
